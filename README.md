@@ -15,8 +15,3 @@ Base Swap is a Python script that facilitates numeral system conversion between 
 2. Navigate to the project directory: `cd baseswap`
 3. Run the script: `python base_swap_v1.py`
 4. Follow the prompts to choose between automatic or manual mode for numeral system conversion.
-
-## Example
-
-Here's how the script works:
-
