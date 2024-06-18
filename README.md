@@ -1,6 +1,6 @@
 # Base Swap
 
-Base Swap is a Python script that facilitates numeral system conversion between binary, decimal, octal, and hexadecimal bases. It includes features for both automatic and manual conversion modes, providing step-by-step explanations of the conversion process.
+Base Swap is a Python script designed to convert numbers between different numeral systems: binary, decimal, octal, and hexadecimal. It provides options for automatic or manual conversion modes, offering step-by-step explanations of how each conversion is performed.
 
 ## Features
 
