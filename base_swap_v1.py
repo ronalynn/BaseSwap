@@ -1,7 +1,7 @@
 import random
 
 def int_to_base(x, base):
-    """Converts an integer x to the specified base."""
+    # Converts an integer x to the specified base.
     if x == 0:
         return "0", ["No conversion needed for zero."]
 
@@ -19,7 +19,7 @@ def int_to_base(x, base):
     return ''.join(str(x) for x in digits[::-1]), steps
 
 def explain_conversion(original_number, original_base, converted_number, target_base):
-    """Provides a detailed step-by-step explanation of numeral system conversion."""
+    # Provides a detailed step-by-step explanation of numeral system conversion.
     numeral_systems = {
         2: "Binary",
         10: "Decimal",
@@ -69,11 +69,10 @@ def explain_conversion(original_number, original_base, converted_number, target_
     print()
 
     # Print the final converted value in the target numeral system
-    print(f"Therefore, {original_in_base[0]} in {numeral_systems[original_base]} is equivalent to")
-    print(f"{converted_in_target[0]} in {numeral_systems[target_base]} ({converted_number} in decimal).")
+    print(f"Therefore, {original_in_base[0]} in {numeral_systems[original_base]} is equivalent to {converted_in_target[0]} in {numeral_systems[target_base]}.")
 
 def random_number_conversion():
-    """Allows the user to choose between random numeral system conversion or selecting numeral systems manually."""
+    # Allows the user to choose between random numeral system conversion or selecting numeral systems manually.
     numeral_systems = {
         2: "Binary",
         10: "Decimal",
