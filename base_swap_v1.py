@@ -8,9 +8,8 @@ def int_to_base(x, base):
     digits = []
     steps = []
 
-    original_number = x
     while x:
-        remainder = int(x % base)
+        remainder = x % base
         digits.append(remainder)
         steps.append(f"{x} ÷ {base} = {x // base}, remainder {remainder}")
         x //= base
@@ -19,7 +18,6 @@ def int_to_base(x, base):
     return ''.join(str(x) for x in digits[::-1]), steps
 
 def explain_conversion(original_number, original_base, converted_number, target_base):
-    # Provides a detailed step-by-step explanation of numeral system conversion.
     numeral_systems = {
         2: "Binary",
         10: "Decimal",
@@ -27,22 +25,17 @@ def explain_conversion(original_number, original_base, converted_number, target_
         16: "Hexadecimal"
     }
 
-    # Convert original and converted numbers to their respective numeral systems
     original_in_base = int_to_base(original_number, original_base)
     converted_in_target = int_to_base(converted_number, target_base)
 
-    # Print initial information about the conversion process
-    print(f"To convert the {numeral_systems[original_base]} number")
-    print(f"{original_in_base[0]} in {numeral_systems[original_base]}")
-    print(f"to {numeral_systems[target_base]} (base {target_base}), we follow these steps:")
+    print("**** CONVERSION EXPLANATION ****")
     print()
-    print(f"1. Write down the {numeral_systems[original_base]} number: Start with the {numeral_systems[original_base]} number")
-    print(f"{original_in_base[0]}")
+    print(f"We're converting the {numeral_systems[original_base]} number {original_in_base[0]} to {numeral_systems[target_base]}.")
     print()
 
-    # Explain how each digit in the original numeral system contributes to its value
-    print(f"2. Identify the positional values: Each digit in the {numeral_systems[original_base]} number represents a power of {original_base},")
-    print(f"starting from the rightmost digit with {original_base**0} ({original_in_base[0][-1]}) and increasing by 1 for each subsequent position to the left.")
+    print("1. Understanding the digits in the original number:")
+    print(f"Each digit in {original_in_base[0]} represents a power of {original_base}.")
+    print(f"The rightmost digit is multiplied by {original_base}^0, the next by {original_base}^1, and so on.")
     print()
 
     print(f"For {original_in_base[0]}:")
@@ -52,27 +45,31 @@ def explain_conversion(original_number, original_base, converted_number, target_
         print(f"{original_in_base[0][i]} × {original_base}^{power} = {original_in_base[0][i]} × {original_base ** power} = {digit_value}")
     print()
 
-    # Sum up the contributions to calculate the decimal value
-    print(f"3. Calculate the decimal value: Multiply each {numeral_systems[original_base]} digit (either 0 or 1) by its corresponding power of {original_base}")
-    print(f"and sum these values.")
+    print(f"2. Calculating the Decimal (base 10) value:")
+    print(f"Add up all the values we just calculated.")
     print()
 
-    print(f"For {original_in_base[0]}:")
+    decimal_sum = sum([int(original_in_base[0][i], original_base) * (original_base ** (len(original_in_base[0])-i-1)) for i in range(len(original_in_base[0]))])
     print(f"{'+'.join([f'{int(original_in_base[0][i], original_base)} × {original_base}^{len(original_in_base[0])-i-1}' for i in range(len(original_in_base[0]))])}")
     print(f"= {'+'.join([str(int(original_in_base[0][i], original_base) * (original_base ** (len(original_in_base[0])-i-1))) for i in range(len(original_in_base[0]))])}")
+    print(f"= {decimal_sum}")
     print()
 
-    print(f"Add these values together: Sum up all the values calculated in the previous step.")
-    print()
-    print(f"{'+'.join([str(int(original_in_base[0][i], original_base) * (original_base ** (len(original_in_base[0])-i-1))) for i in range(len(original_in_base[0]))])}")
-    print(f"= {sum([int(original_in_base[0][i], original_base) * (original_base ** (len(original_in_base[0])-i-1)) for i in range(len(original_in_base[0]))])}")
-    print()
+    if target_base != 10:
+        print(f"3. Converting Decimal to {numeral_systems[target_base]}:")
+        print(f"Now, we convert the decimal value {decimal_sum} to {numeral_systems[target_base]}.")
+        print(f"We repeatedly divide the number by {target_base} and record the remainders.")
+        print()
 
-    # Print the final converted value in the target numeral system
-    print(f"Therefore, {original_in_base[0]} in {numeral_systems[original_base]} is equivalent to {converted_in_target[0]} in {numeral_systems[target_base]}.")
+        for step in int_to_base(decimal_sum, target_base)[1]:
+            print(step)
+        print()
+
+        print(f"Therefore, {original_in_base[0]} in {numeral_systems[original_base]} is equivalent to {converted_in_target[0]} in {numeral_systems[target_base]}.")
+    else:
+        print(f"Therefore, {original_in_base[0]} in {numeral_systems[original_base]} is equivalent to {decimal_sum} in {numeral_systems[target_base]}.")
 
 def random_number_conversion():
-    # Allows the user to choose between random numeral system conversion or selecting numeral systems manually.
     numeral_systems = {
         2: "Binary",
         10: "Decimal",
@@ -87,30 +84,29 @@ def random_number_conversion():
     choice = input("Enter 1 or 2: ")
 
     if choice == '1':
-        from_base = random.choice(list(numeral_systems.keys()))  # Randomly choose a numeral system
+        from_base = random.choice(list(numeral_systems.keys()))  
         to_base = random.choice(list(numeral_systems.keys()))
         while to_base == from_base:
-            to_base = random.choice(list(numeral_systems.keys()))  # Ensure from_base and to_base are different
+            to_base = random.choice(list(numeral_systems.keys()))  
 
-        random_number = random.randint(0, (2**10)-1)  # Generate a random number suitable for binary (up to 1023)
+        random_number = random.randint(0, (2**10)-1)  
 
-        # Display initial information
         print(f"\nRandomly chosen numeral system: Convert from {numeral_systems[from_base]} to {numeral_systems[to_base]}")
         print(f"The randomly generated number is: {int_to_base(random_number, from_base)[0]} in {numeral_systems[from_base]}")
 
-        # Calculate the correct answer
         correct_answer = int_to_base(random_number, to_base)[0]
 
-        # Ask user for their answer
-        user_answer = input(f"What is {int_to_base(random_number, from_base)[0]} in {numeral_systems[to_base]}? ")
+        user_answer = input(f"What is {int_to_base(random_number, from_base)[0]} in {numeral_systems[to_base]}?: ")
 
-        # Check if the answer is correct
         if user_answer == correct_answer:
+            print()
             print("Correct!")
+            print()
         else:
+            print()
             print(f"Wrong. The correct answer is {correct_answer}.")
+            print()
 
-        # Show the explanation regardless of the answer
         converted_number = int(int_to_base(random_number, from_base)[0], from_base)
         explain_conversion(random_number, from_base, converted_number, to_base)
 
@@ -131,25 +127,24 @@ def random_number_conversion():
             print("Invalid choice. Please enter 2, 10, 8, or 16.")
             to_base = int(input("Enter the numeral system you want to convert to (2, 10, 8, 16): "))
 
-        random_number = random.randint(0, (2**10)-1)  # Generate a random number suitable for binary (up to 1023)
+        random_number = random.randint(0, (2**10)-1)  
 
-        # Display initial information
         print(f"\nYou chose numeral systems: Convert from {numeral_systems[from_base]} to {numeral_systems[to_base]}")
         print(f"The randomly generated number is: {int_to_base(random_number, from_base)[0]} in {numeral_systems[from_base]}")
 
-        # Calculate the correct answer
         correct_answer = int_to_base(random_number, to_base)[0]
 
-        # Ask user for their answer
         user_answer = input(f"What is {int_to_base(random_number, from_base)[0]} in {numeral_systems[to_base]}? ")
 
-        # Check if the answer is correct
         if user_answer == correct_answer:
+            print()
             print("Correct!")
+            print()
         else:
+            print()
             print(f"Wrong. The correct answer is {correct_answer}.")
+            print()
 
-        # Show the explanation regardless of the answer
         converted_number = int(int_to_base(random_number, from_base)[0], from_base)
         explain_conversion(random_number, from_base, converted_number, to_base)
 
@@ -157,5 +152,4 @@ def random_number_conversion():
         print("Invalid choice. Please enter 1 or 2.")
         return
 
-# Run the function
 random_number_conversion()
