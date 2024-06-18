@@ -11,23 +11,12 @@ Base Swap is a Python script that facilitates numeral system conversion between 
 
 ## Usage
 
-1. Clone the repository: `git clone https://github.com/your-username/base-swap.git`
-2. Navigate to the project directory: `cd base-swap`
-3. Run the script: `python base_swap.py`
+1. Clone the repository: `git clone https://github.com/your-username/BaseSwap.git`
+2. Navigate to the project directory: `cd baseswap`
+3. Run the script: `python base_swap_v1.py`
 4. Follow the prompts to choose between automatic or manual mode for numeral system conversion.
 
 ## Example
 
 Here's how the script works:
 
-- Automatic Mode: It randomly selects numeral systems and a number for conversion.
-- Manual Mode: You can select the numeral systems you want to convert between and provide a number for conversion.
-- After choosing, the script displays the original number, the conversion steps, and the resulting converted number.
-
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
----
-
-This version presents the information in a straightforward format without Markdown syntax, suitable for quick reading and understanding of the project's purpose, features, usage instructions, an example scenario, and licensing details.
